@@ -1,6 +1,6 @@
 body {
-    background-image: url('static/images/background.jpg');
-    background-size: 100% 100%;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
     color: white;
     font-family: Arial, sans-serif;
