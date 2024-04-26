@@ -1,13 +1,13 @@
 // Khai báo bảng và người chơi đầu được sử dụng "X"
-let boardElement = document.getElementById('board');
-let statusElement = document.getElementById('status');
-let board = [];
+const boardElement = document.getElementById('board');
+const statusElement = document.getElementById('status');
+const board = [];
 let currentPlayer = 'X';
 
 // Tạo bảng 20x20 
 for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 20; j++) {
-        let cell = document.createElement('div');
+        const cell = document.createElement('div');
         cell.classList.add('cell');
         cell.addEventListener('click', handleClick, { once: true });
         boardElement.appendChild(cell);
@@ -21,7 +21,7 @@ function handleClick(e) {
     e.target.classList.add(currentPlayer.toLowerCase());
     // Highlight cell sau khi đánh
     e.target.classList.add('highlight');
-    let index = board.indexOf(e.target);
+    const index = board.indexOf(e.target);
     if (checkWin(index, currentPlayer)) {
         setTimeout(function() {
             alert(currentPlayer + ' wins!');
@@ -33,27 +33,27 @@ function handleClick(e) {
 
 // Hàm kiểm tra trả về kết quả (Thắng - Hòa)
 function checkWin(index, player) {
-    let row = Math.floor(index / 20);
-    let col = index % 20;
-    let directions = [
+    const row = Math.floor(index / 20);
+    const col = index % 20;
+    const directions = [
         [-1, -1],
         [-1, 0],
         [-1, 1],
         [0, 1]
     ];
-    for (let [dx, dy] of directions) {
+    for (const [dx, dy] of directions) {
         let count = 1;
         for (let i = 1; i < 5; i++) {
-            let x = row + dx * i;
-            let y = col + dy * i;
+            const x = row + dx * i;
+            const y = col + dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
             count++;
         }
         for (let i = 1; i < 5; i++) {
-            let x = row - dx * i;
-            let y = col - dy * i;
+            const x = row - dx * i;
+            const y = col - dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
