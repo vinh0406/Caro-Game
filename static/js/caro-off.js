@@ -1,6 +1,6 @@
 // Khai báo bảng và người chơi đầu được sử dụng "X"
 const boardElement = document.getElementById('board');
-const statusElement = document.getElementById('status');
+const _statusElement = document.getElementById('status');
 const board = [];
 let currentPlayer = 'X';
 
