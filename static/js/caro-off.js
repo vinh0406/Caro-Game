@@ -21,15 +21,17 @@ function handleClick(e) {
     e.target.classList.add(currentPlayer.toLowerCase());
     // Highlight cell sau khi đánh
     e.target.classList.add('highlight');
-    const index = board.indexOf(e.target);
+    let index = board.indexOf(e.target);
     if (checkWin(index, currentPlayer)) {
         setTimeout(function() {
             alert(currentPlayer + ' wins!');
             resetGame();
         }, 100); // Thêm trễ 100ms
+    } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
     }
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
 }
+
 
 // Hàm kiểm tra trả về kết quả (Thắng - Hòa)
 function checkWin(index, player) {
