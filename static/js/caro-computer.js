@@ -29,7 +29,7 @@ function handleClick(e) {
                 alert('You win!');
                 resetGame();
             }, 100); // Thêm trễ 100ms
-
+            return;
         }
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
 
@@ -45,6 +45,7 @@ function handleClick(e) {
                     alert('Computer wins!');
                     resetGame();
                 }, 100); // Thêm trễ 100ms
+                return;
             }
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         }
