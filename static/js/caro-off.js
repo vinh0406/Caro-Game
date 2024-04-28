@@ -21,7 +21,7 @@ function handleClick(e) {
     e.target.classList.add(currentPlayer.toLowerCase());
     // Highlight cell sau khi đánh
     e.target.classList.add('highlight');
-    let index = board.indexOf(e.target);
+    const index = board.indexOf(e.target);
     if (checkWin(index, currentPlayer)) {
         setTimeout(function() {
             alert(currentPlayer + ' wins!');
