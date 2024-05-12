@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     background-image: url('../images/background.jpg');
     background-size: cover;
@@ -13,6 +16,7 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
+    border: 2px solid brown; 
 }
 
 .cell {
