@@ -15,23 +15,6 @@ body {
     gap: 0px;
 }
 
-/* Thêm lớp mới cho các ô ở rìa bảng */
-.cell.top-edge {
-    border-top: 2px solid brown;
-}
-
-.cell.bottom-edge {
-    border-bottom: 2px solid brown;
-}
-
-.cell.left-edge {
-    border-left: 2px solid brown;
-}
-
-.cell.right-edge {
-    border-right: 2px solid brown;
-}
-
 .cell {
     border-radius: 5px;
     width: 40px;
