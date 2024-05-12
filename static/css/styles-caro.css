@@ -39,13 +39,13 @@ body {
 }
 
 .cell.x {
-    color: #ff7f7f;
+    color: #0000ff;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
 
 .cell.o {
-    color: #7878ff;
+    color: #ff0000;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
