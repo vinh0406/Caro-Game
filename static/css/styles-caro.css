@@ -9,6 +9,7 @@ body {
 }
 
 #board {
+    width: fit-content;
     justify-content: center;
     align-items: center;
     margin: 0;
