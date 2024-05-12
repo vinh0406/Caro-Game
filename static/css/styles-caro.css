@@ -13,6 +13,9 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
+    border: 10px solid #654321; 
+    box-sizing: border-box;
+    background-color: #FFFFFF; 
 }
 
 .cell {
