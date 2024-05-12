@@ -13,6 +13,9 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
+    background-image: url('../images/o.jpg');
+    background-repeat: no-repeat;
+    color: white;
 }
 
 .cell {
