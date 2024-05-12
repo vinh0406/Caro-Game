@@ -13,11 +13,15 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
-    border-left: 10px solid #654321; 
-    border-right: 10px solid #654321; 
+}
+
+#board-inner {
+    grid-column: 2 / span 18;
+    grid-row: 2 / span 18;
+    border: 10px solid #654321; /* Viền nâu xung quanh */
+    border-radius: 15px; /* Viền bo cong ở góc */
     box-sizing: border-box;
-    background-color: #FFFFFF; 
-    border-radius: 15px; 
+    background-color: #FFFFFF; /* Màu nền trắng */
 }
 
 .cell {
