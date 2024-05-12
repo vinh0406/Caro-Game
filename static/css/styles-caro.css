@@ -16,7 +16,9 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
-    border: 2px solid brown; 
+    border: 5px solid brown; 
+    background-color: white; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
 }
 
 .cell {
