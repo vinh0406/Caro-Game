@@ -116,67 +116,78 @@ function evaluatePosition(row, col, player) {
 
     for (const [dx, dy] of directions) {
         let count = 1;
-        let emptyAfter = false;
-        let emptyBefore = false;
 
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
 
-            if (board[x * 20 + y].textContent === player) {
-                count++;
-            } else if (board[x * 20 + y].textContent === "") {
-                emptyAfter = true;
-                break;
-            } else {
-                break;
-            }
+            count++;
         }
 
         for (let i = 1; i < 5; i++) {
             const x = row - dx * i;
             const y = col - dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
 
-            if (board[x * 20 + y].textContent === player) {
-                count++;
-            } else if (board[x * 20 + y].textContent === "") {
-                emptyBefore = true;
-                break;
-            } else {
-                break;
-            }
+            count++;
         }
 
-        let score;
-        if (count === 5) {
-            score = Infinity;
-        } else if (count === 4 && (emptyAfter || emptyBefore)) {
-            score = 10000;
-        } else if (count === 3 && (emptyAfter && emptyBefore)) {
-            score = 1000;
-        } else {
-            score = count;
-        }
-
-        maxScore = Math.max(maxScore, score);
+        maxScore = Math.max(maxScore, count);
     }
 
     return maxScore;
 }
 
+// Hàm kiểm tra số điểm phòng thủ
 function evaluateDefensePosition(row, col, player) {
-    const opponent = player === 'X' ? 'O' : 'X';
-    return evaluatePosition(row, col, opponent);
+    const directions = [
+        [0, 1], // Ngang
+        [1, 0], // Dọc
+        [1, 1], // Chéo phải
+        [1, -1] // Chéo trái
+    ];
+
+    let maxScore = 0; // Đặt giá trị thấp để ưu tiên phòng thủ
+
+    for (const [dx, dy] of directions) {
+        let count = 1;
+
+        for (let i = 1; i < 5; i++) {
+            const x = row + dx * i;
+            const y = col + dy * i;
+
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                break;
+            }
+
+            count++;
+        }
+
+        for (let i = 1; i < 5; i++) {
+            const x = row - dx * i;
+            const y = col - dy * i;
+
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                break;
+            }
+
+            count++;
+        }
+
+        maxScore = Math.max(maxScore, count);
+    }
+
+    return maxScore;
 }
 
+// Hàm lấy danh sách các điểm có điểm số cao nhất
 function getBestPoints() {
     let maxAttackScore = -Infinity;
     let maxDefenseScore = -Infinity;
