@@ -16,8 +16,6 @@ body {
 }
 
 #board-inner {
-    grid-column: 2 / span 18;
-    grid-row: 2 / span 18;
     border: 10px solid #654321; /* Viền nâu xung quanh */
     border-radius: 15px; /* Viền bo cong ở góc */
     box-sizing: border-box;
