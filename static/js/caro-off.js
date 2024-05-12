@@ -9,6 +9,18 @@ for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 20; j++) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
+         if (i == 0) {
+            cell.classList.add('top-edge');
+        }
+        if (i == n - 1) {
+            cell.classList.add('bottom-edge');
+        }
+        if (j == 0) {
+            cell.classList.add('left-edge');
+        }
+        if (j == n - 1) {
+            cell.classList.add('right-edge');
+        }
         cell.addEventListener('click', handleClick, { once: true });
         boardElement.appendChild(cell);
         board.push(cell);
