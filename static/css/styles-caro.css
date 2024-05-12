@@ -13,7 +13,23 @@ body {
     display: grid;
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
-    border: 2px solid brown;
+}
+
+/* Thêm lớp mới cho các ô ở rìa bảng */
+.cell.top-edge {
+    border-top: 2px solid brown;
+}
+
+.cell.bottom-edge {
+    border-bottom: 2px solid brown;
+}
+
+.cell.left-edge {
+    border-left: 2px solid brown;
+}
+
+.cell.right-edge {
+    border-right: 2px solid brown;
 }
 
 .cell {
