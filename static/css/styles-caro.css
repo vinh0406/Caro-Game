@@ -17,7 +17,7 @@ body {
     grid-template-columns: repeat(20, 0fr);
     gap: 0px;
     border: 5px solid brown; 
-    background-color: white; 
+    background-color: #D3D3D3; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
 }
 
