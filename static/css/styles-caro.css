@@ -19,8 +19,11 @@ body {
     border: 15px solid transparent;
     border-image: url('../images/nau.jpg') 30 round;
     background-color: white; 
+    background-color: transparent; /* Xóa màu nền trắng */
+    background-image: url('../images/o.jpg'); /* Đường dẫn tới ảnh nền của bạn */
+    background-size: cover; /* Ảnh nền sẽ phủ kín toàn bộ bảng */
+    background-repeat: no-repeat; /* Ảnh nền sẽ không lặp lại */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
-    border-radius: 15px;
 }
 
 .cell {
