@@ -19,15 +19,15 @@
     </style>
 </head>
 <body>
-    <a href="index.html">
+    <a id="homeLink" href="index.html">
         <img id="homeButton" src="static/images/home.png" alt="Home" width="100" height="auto">
     </a>
   <div class="center">
       <img class="logo" src="static/images/logo.png" alt="Logo">
       <div class="title special-title"> Game Caro </div> 
       <p class="intro">Hãy chọn chế độ chơi.</p>
-      <button class="button" onclick="window.location.href='caro-off.html'">Chơi 2 Người</button>
-      <button class="button" onclick="window.location.href='caro-computer.html'">Chơi Với Máy</button>
+      <button id="twoPlayerButton" class="button" onclick="window.location.href='caro-off.html'">Chơi 2 Người</button>
+      <button id="computerButton" class="button" onclick="window.location.href='caro-computer.html'">Chơi Với Máy</button>
   </div>
     <!-- Âm thanh click chuột -->
     <audio id="clickSound" src="static/sounds/click.mp3" preload="auto"></audio>
@@ -39,6 +39,20 @@
         // Thêm sự kiện click cho toàn bộ trang web
         document.addEventListener('click', function() {
             // Chơi âm thanh click chuột
+            clickSound.play();
+        });
+        // Thêm sự kiện click cho nút "Home"
+        document.getElementById('homeLink').addEventListener('click', function() {
+            clickSound.play();
+        });
+
+        // Thêm sự kiện click cho nút "Chơi 2 Người"
+        document.getElementById('twoPlayerButton').addEventListener('click', function() {
+            clickSound.play();
+        });
+
+        // Thêm sự kiện click cho nút "Chơi Với Máy"
+        document.getElementById('computerButton').addEventListener('click', function() {
             clickSound.play();
         });
     </script>
