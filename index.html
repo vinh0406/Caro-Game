@@ -29,6 +29,19 @@
       <button class="button" onclick="window.location.href='caro-off.html'">Chơi 2 Người</button>
       <button class="button" onclick="window.location.href='caro-computer.html'">Chơi Với Máy</button>
   </div>
+    <!-- Âm thanh click chuột -->
+    <audio id="clickSound" src="static/sounds/click.mp3" preload="auto"></audio>
+
+    <script>
+        // Lấy đối tượng âm thanh từ HTML
+        var clickSound = document.getElementById('clickSound');
+
+        // Thêm sự kiện click cho toàn bộ trang web
+        document.addEventListener('click', function() {
+            // Chơi âm thanh click chuột
+            clickSound.play();
+        });
+    </script>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </html>
