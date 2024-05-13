@@ -42,18 +42,41 @@
             clickSound.play();
         });
         // Thêm sự kiện click cho nút "Home"
-        document.getElementById('homeLink').addEventListener('click', function() {
-            clickSound.play();
+        document.getElementById('homeLink').addEventListener('click', function(event) {
+            event.preventDefault();  // Ngăn chặn sự kiện chuyển hướng ban đầu
+            clickSound.play();  // Chơi âm thanh click chuột
+
+            // Khi âm thanh đã phát xong, chuyển hướng đến trang mới
+            clickSound.onended = function() {
+                window.location.href = 'index.html';
+            };
+           setTimeout(function() {
+        window.location.href = 'index.html';  //Hết timeout tự chuyển hướng đến trang mới
+    }, 1000);
         });
 
-        // Thêm sự kiện click cho nút "Chơi 2 Người"
-        document.getElementById('twoPlayerButton').addEventListener('click', function() {
+       // Thêm sự kiện click cho nút "Chơi 2 Người"
+        document.getElementById('twoPlayerButton').addEventListener('click', function(event) {
+            event.preventDefault();
             clickSound.play();
+            clickSound.onended = function() {
+                window.location.href = 'caro-off.html';
+            };
+            setTimeout(function() {
+        window.location.href = 'caro-off.html';  //Hết timeout tự chuyển hướng đến trang mới
+    }, 1000);
         });
 
         // Thêm sự kiện click cho nút "Chơi Với Máy"
-        document.getElementById('computerButton').addEventListener('click', function() {
+        document.getElementById('computerButton').addEventListener('click', function(event) {
+            event.preventDefault();
             clickSound.play();
+            clickSound.onended = function() {
+                window.location.href = 'caro-computer.html';
+            };
+            setTimeout(function() {
+        window.location.href = 'caro-computer.html';  //Hết timeout tự chuyển hướng đến trang mới
+    }, 1000);
         });
     </script>
 </body>
