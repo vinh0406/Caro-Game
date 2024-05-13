@@ -65,13 +65,15 @@
         });
 
         // Thêm sự kiện click cho nút "Chơi Với Máy"
-        document.getElementById('computerButton').addEventListener('click', function(event) {
-            event.preventDefault();
-            clickSound.play();
-            setTimeout(function() {
-        window.location.href = 'caro-computer.html';  //Hết timeout tự chuyển hướng đến trang mới
-    }, 2000);
-        });
+       document.getElementById('computerButton').addEventListener('click', function(event) {
+    event.preventDefault();
+    clickSound.oncanplaythrough = function() {
+        clickSound.play();
+        setTimeout(function() {
+            window.location.href = 'caro-computer.html';
+        }, 2000);
+    };
+});
     </script>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
