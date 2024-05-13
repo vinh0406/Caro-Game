@@ -33,23 +33,14 @@
     <audio id="clickSound" src="static/sounds/click.mp3" preload="auto"></audio>
 
     <script>
-        // Lấy đối tượng âm thanh và liên kết từ HTML
-    var clickSound = document.getElementById('clickSound');
-    var homeButton = document.getElementById('homeButton');
+        // Lấy đối tượng âm thanh từ HTML
+        var clickSound = document.getElementById('clickSound');
 
-    // Thêm sự kiện click cho nút Home
-    homeButton.addEventListener('click', function(event) {
-        // Ngăn chặn hành động mặc định của liên kết
-        event.preventDefault();
-
-        // Chơi âm thanh click chuột
-        clickSound.play();
-
-        // Chờ đợi cho đến khi âm thanh kết thúc trước khi chuyển hướng
-        clickSound.onended = function() {
-            window.location.href = homeButton.href;
-        };
-    });
+        // Thêm sự kiện click cho toàn bộ trang web
+        document.addEventListener('click', function() {
+            // Chơi âm thanh click chuột
+            clickSound.play();
+        });
     </script>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
