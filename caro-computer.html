@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="static/css/styles-caro.css">
 </head>
 <body>
-    <a href="index.html">
+    <a id="homeLink" href="index.html">
         <img id="homeButton" src="static/images/home.png" alt="Home" width="100" height="auto">
     </a>
     <h1 style="text-align: center; color: #800000;">Caro Game</h1>
@@ -21,6 +21,23 @@
     <div id="status"></div>
     <div id="board">
     </div>
+    <!-- Âm thanh click chuột -->
+    <audio id="clickSound" src="static/sounds/click.mp3" preload="auto"></audio>
+
+    <script>
+        // Lấy đối tượng âm thanh từ HTML
+        var clickSound = document.getElementById('clickSound');
+
+        // Thêm sự kiện click cho toàn bộ trang web
+        document.addEventListener('click', function() {
+            // Chơi âm thanh click chuột
+            clickSound.play();
+        });
+        // Thêm sự kiện click cho nút "Home"
+        document.getElementById('homeLink').addEventListener('click', function() {
+            clickSound.play();
+        });
+    </script>
 </body>
 <script>
     alert('Chế độ: Người đấu Máy --> Bạn là X, Máy là O');
