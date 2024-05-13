@@ -40,7 +40,7 @@
 
             // Khi âm thanh đã phát xong, chuyển hướng đến trang mới
             clickSound.onended = function() {
-                window.location.href = event.target.href;
+                window.location.href = event.currentTarget.href;
             };
         });
     </script>
