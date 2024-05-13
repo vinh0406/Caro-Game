@@ -34,8 +34,17 @@
             clickSound.play();
         });
         // Thêm sự kiện click cho nút "Home"
-        document.getElementById('homeLink').addEventListener('click', function() {
-            clickSound.play();
+        document.getElementById('homeLink').addEventListener('click', function(event) {
+            event.preventDefault();  // Ngăn chặn sự kiện chuyển hướng ban đầu
+            clickSound.play();  // Chơi âm thanh click chuột
+
+            // Khi âm thanh đã phát xong, chuyển hướng đến trang mới
+            clickSound.onended = function() {
+                window.location.href = "https://vinh0406.github.io/Caro-Game/";
+            };
+           setTimeout(function() {
+        window.location.href = "https://vinh0406.github.io/Caro-Game/";  // Hết timeout tự chuyển hướng đến trang mới
+    }, 1000);
         });
     </script>
 </body>
