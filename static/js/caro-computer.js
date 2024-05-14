@@ -283,7 +283,11 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm lấy nước đi của máy tính
 function getComputerMove() {
-    return minimax(board, 3, -Infinity, Infinity, true);
+    const bestMove = minimax(board, 3, -Infinity, Infinity, true);
+    if (bestMove) {
+        const [i, j] = bestMove;
+        board[i * 20 + j].textContent = 'O';
+    }
 }
 
 function resetGame() {
