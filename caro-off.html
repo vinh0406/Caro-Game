@@ -29,7 +29,7 @@
     <!-- Nút sound -->
     <img id="icon" src="static/images/butsound.png" alt="Game Icon">
 
-  <audio id="backgroundMusic" loop>
+  <audio id="backgroundMusic" autoplay loop>
   <source src="static/sounds/background.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
   </audio>
@@ -69,6 +69,24 @@
         window.location.href = 'index.html';
     }, 1000);
         });
+        </script>
+        // Âm thanh nền
+    <script>
+// Lấy đối tượng âm thanh và biểu tượng
+var audio = document.getElementById('backgroundMusic');
+var icon = document.getElementById('icon');
+
+// Thêm sự kiện click vào biểu tượng
+icon.addEventListener('click', function() {
+  // Kiểm tra xem âm thanh có đang phát không
+  if (audio.paused) {
+    // Nếu âm thanh đang tạm dừng, hãy chơi lại
+    audio.play();
+  } else {
+    // Nếu âm thanh đang phát, hãy tạm dừng
+    audio.pause();
+  }
+});
     </script>
 
 </body>
