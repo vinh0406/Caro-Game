@@ -242,19 +242,19 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
         return maxScore;
     }
 
-        if (maximizingPlayer) {
+    if (maximizingPlayer) {
         let maxEval = -Infinity;
         let bestMove;
         const bestPoints = getBestPoints();
         for (const point of bestPoints) {
             const newBoard = [...board];
             newBoard[point[0] * 20 + point[1]] = 'O';
-            const eval = minimax(newBoard, depth - 1, alpha, beta, false);
-            if (eval > maxEval) {
-                maxEval = eval;
+            const evan = minimax(newBoard, depth - 1, alpha, beta, false);
+            if (evan > maxEval) {
+                maxEval = evan;
                 bestMove = point;
             }
-            alpha = Math.max(alpha, eval);
+            alpha = Math.max(alpha, evan);
             if (beta <= alpha) {
                 break;
             }
@@ -267,12 +267,12 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
         for (const point of bestPoints) {
             const newBoard = [...board];
             newBoard[point[0] * 20 + point[1]] = 'X';
-            const eval = minimax(newBoard, depth - 1, alpha, beta, true);
-            if (eval < minEval) {
-                minEval = eval;
+            const evan = minimax(newBoard, depth - 1, alpha, beta, true);
+            if (evan < minEval) {
+                minEval = evan;
                 bestMove = point;
             }
-            beta = Math.min(beta, eval);
+            beta = Math.min(beta, evan);
             if (beta <= alpha) {
                 break;
             }
