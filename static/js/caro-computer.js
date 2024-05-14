@@ -225,9 +225,8 @@ function getBestPoints() {
     return maxAttackScore >= maxDefenseScore ? bestAttackPoints : bestDefensePoints;
 }
 
-// Hàm Minimax với cắt tỉa Alpha-Beta
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
-    let player = maximizingPlayer ? 'O' : 'X';
+    const player = maximizingPlayer ? 'O' : 'X';
     for (let i = 0; i < 20; i++) {
         for (let j = 0; j < 20; j++) {
             if (board[i * 20 + j].textContent === player) {
@@ -237,8 +236,8 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
                     for (let i = 0; i < 20; i++) {
                         for (let j = 0; j < 20; j++) {
                             if (board[i * 20 + j].textContent === "") {
-                                const score = evaluatePosition(i, j, maximizingPlayer ? 'O' : 'X');
-                                const defenseScore = evaluateDefensePosition(i, j, maximizingPlayer ? 'X' : 'O');
+                                const score = evaluatePosition(i, j, 'O');
+                                const defenseScore = evaluateDefensePosition(i, j, 'X');
                                 maxScore = Math.max(maxScore, score + defenseScore);
                             }
                         }
@@ -249,43 +248,23 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
         }
     }
 
-    if (maximizingPlayer) {
-        let maxEval = -Infinity;
-        let bestMove;
-        const bestPoints = getBestPoints();
-        for (const point of bestPoints) {
-            const newBoard = [...board];
-            newBoard[point[0] * 20 + point[1]] = 'O';
-            const evan = minimax(newBoard, depth - 1, alpha, beta, false);
-            if (evan > maxEval) {
-                maxEval = evan;
-                bestMove = point;
-            }
-            alpha = Math.max(alpha, evan);
-            if (beta <= alpha) {
-                break;
-            }
+    let maxEval = -Infinity;
+    let bestMove;
+    const bestPoints = getBestPoints();
+    for (const point of bestPoints) {
+        const newBoard = [...board];
+        newBoard[point[0] * 20 + point[1]] = 'O';
+        const evan = minimax(newBoard, depth - 1, alpha, beta, true);
+        if (evan > maxEval) {
+            maxEval = evan;
+            bestMove = point;
         }
-        return bestMove;
-    } else {
-        let minEval = Infinity;
-        let bestMove;
-        const bestPoints = getBestPoints();
-        for (const point of bestPoints) {
-            const newBoard = [...board];
-            newBoard[point[0] * 20 + point[1]] = 'X';
-            const evan = minimax(newBoard, depth - 1, alpha, beta, true);
-            if (evan < minEval) {
-                minEval = evan;
-                bestMove = point;
-            }
-            beta = Math.min(beta, evan);
-            if (beta <= alpha) {
-                break;
-            }
+        alpha = Math.max(alpha, evan);
+        if (beta <= alpha) {
+            break;
         }
-        return bestMove;
     }
+    return bestMove;
 }
 
 // Hàm lấy nước đi của máy tính
