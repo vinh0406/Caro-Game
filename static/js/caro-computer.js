@@ -225,11 +225,65 @@ function getBestPoints() {
     return maxAttackScore >= maxDefenseScore ? bestAttackPoints : bestDefensePoints;
 }
 
-// Hàm di chuyển của máy
+// Hàm Minimax với cắt tỉa Alpha-Beta
+function minimax(board, depth, alpha, beta, maximizingPlayer) {
+    if (depth == 0 || checkWin(board)) {
+        // Sử dụng hàm evaluatePosition và evaluateDefensePosition để đánh giá bảng
+        let maxScore = -Infinity;
+        for (let i = 0; i < 20; i++) {
+            for (let j = 0; j < 20; j++) {
+                if (board[i * 20 + j].textContent === "") {
+                    const score = evaluatePosition(i, j, maximizingPlayer ? 'O' : 'X');
+                    const defenseScore = evaluateDefensePosition(i, j, maximizingPlayer ? 'X' : 'O');
+                    maxScore = Math.max(maxScore, score + defenseScore);
+                }
+            }
+        }
+        return maxScore;
+    }
+
+        if (maximizingPlayer) {
+        let maxEval = -Infinity;
+        let bestMove;
+        const bestPoints = getBestPoints();
+        for (const point of bestPoints) {
+            const newBoard = [...board];
+            newBoard[point[0] * 20 + point[1]] = 'O';
+            const eval = minimax(newBoard, depth - 1, alpha, beta, false);
+            if (eval > maxEval) {
+                maxEval = eval;
+                bestMove = point;
+            }
+            alpha = Math.max(alpha, eval);
+            if (beta <= alpha) {
+                break;
+            }
+        }
+        return bestMove;
+    } else {
+        let minEval = Infinity;
+        let bestMove;
+        const bestPoints = getBestPoints();
+        for (const point of bestPoints) {
+            const newBoard = [...board];
+            newBoard[point[0] * 20 + point[1]] = 'X';
+            const eval = minimax(newBoard, depth - 1, alpha, beta, true);
+            if (eval < minEval) {
+                minEval = eval;
+                bestMove = point;
+            }
+            beta = Math.min(beta, eval);
+            if (beta <= alpha) {
+                break;
+            }
+        }
+        return bestMove;
+    }
+}
+
+// Hàm lấy nước đi của máy tính
 function getComputerMove() {
-    const bestPoints = getBestPoints();
-    const randomIndex = Math.floor(Math.random() * bestPoints.length);
-    return bestPoints[randomIndex];
+    return minimax(board, 3, -Infinity, Infinity, true);
 }
 
 function resetGame() {
