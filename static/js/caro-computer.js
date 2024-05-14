@@ -227,19 +227,26 @@ function getBestPoints() {
 
 // Hàm Minimax với cắt tỉa Alpha-Beta
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
-    if (depth == 0 || checkWin(board)) {
-        // Sử dụng hàm evaluatePosition và evaluateDefensePosition để đánh giá bảng
-        let maxScore = -Infinity;
-        for (let i = 0; i < 20; i++) {
-            for (let j = 0; j < 20; j++) {
-                if (board[i * 20 + j].textContent === "") {
-                    const score = evaluatePosition(i, j, maximizingPlayer ? 'O' : 'X');
-                    const defenseScore = evaluateDefensePosition(i, j, maximizingPlayer ? 'X' : 'O');
-                    maxScore = Math.max(maxScore, score + defenseScore);
+    let player = maximizingPlayer ? 'O' : 'X';
+    for (let i = 0; i < 20; i++) {
+        for (let j = 0; j < 20; j++) {
+            if (board[i * 20 + j].textContent === player) {
+                if (depth == 0 || checkWin(i * 20 + j, player)) {
+                    // Sử dụng hàm evaluatePosition và evaluateDefensePosition để đánh giá bảng
+                    let maxScore = -Infinity;
+                    for (let i = 0; i < 20; i++) {
+                        for (let j = 0; j < 20; j++) {
+                            if (board[i * 20 + j].textContent === "") {
+                                const score = evaluatePosition(i, j, maximizingPlayer ? 'O' : 'X');
+                                const defenseScore = evaluateDefensePosition(i, j, maximizingPlayer ? 'X' : 'O');
+                                maxScore = Math.max(maxScore, score + defenseScore);
+                            }
+                        }
+                    }
+                    return maxScore;
                 }
             }
         }
-        return maxScore;
     }
 
     if (maximizingPlayer) {
