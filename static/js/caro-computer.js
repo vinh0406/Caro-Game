@@ -54,27 +54,27 @@ function handleClick(e) {
 }
 
 function checkWin(index, player) {
-    let row = Math.floor(index / 20); // Lấy số hàng 
-    let col = index % 20; // Lấy số cột
-    let directions = [
+    const row = Math.floor(index / 20); // Lấy số hàng 
+    const col = index % 20; // Lấy số cột
+    const directions = [
         [-1, -1],
         [-1, 0],
         [-1, 1],
         [0, 1]
     ];
-    for (let [dx, dy] of directions) {
+    for (const [dx, dy] of directions) {
         let count = 1;
         for (let i = 1; i < 5; i++) {
-            let x = row + dx * i;
-            let y = col + dy * i;
+            const x = row + dx * i;
+            const y = col + dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
             count++;
         }
         for (let i = 1; i < 5; i++) {
-            let x = row - dx * i;
-            let y = col - dy * i;
+            const x = row - dx * i;
+            const y = col - dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
@@ -102,8 +102,8 @@ function evaluatePosition(row, col, player) {
         let count = 1;
 
         for (let i = 1; i < 5; i++) {
-            let x = row + dx * i;
-            let y = col + dy * i;
+            const x = row + dx * i;
+            const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
@@ -113,8 +113,8 @@ function evaluatePosition(row, col, player) {
         }
 
         for (let i = 1; i < 5; i++) {
-            let x = row - dx * i;
-            let y = col - dy * i;
+            const x = row - dx * i;
+            const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
@@ -144,8 +144,8 @@ function evaluateDefensePosition(row, col, player) {
         let count = 1;
 
         for (let i = 1; i < 5; i++) {
-            let x = row + dx * i;
-            let y = col + dy * i;
+            const x = row + dx * i;
+            const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
@@ -155,8 +155,8 @@ function evaluateDefensePosition(row, col, player) {
         }
 
         for (let i = 1; i < 5; i++) {
-            let x = row - dx * i;
-            let y = col - dy * i;
+            const x = row - dx * i;
+            const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
