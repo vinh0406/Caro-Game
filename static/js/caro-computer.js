@@ -262,11 +262,14 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
     const player = maximizingPlayer ? 'O' : 'X';
     const opponent = maximizingPlayer ? 'X' : 'O';
     let bestMove;
+    // Tạo một bản sao của board
+    const boardCopy = [...board];
     if (depth == 0) {
+        // Sử dụng boardCopy thay vì board
         let maxScore = -Infinity;
         for (let i = 0; i < 20; i++) {
             for (let j = 0; j < 20; j++) {
-                if (board[i * 20 + j].textContent === "") {
+                if (boardCopy[i * 20 + j].textContent === "") {
                     const score = evaluatePosition(i, j, player);
                     const defenseScore = evaluateDefensePosition(i, j, opponent);
                     if (score + defenseScore > maxScore) {
@@ -279,21 +282,22 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
         return { score: maxScore, move: bestMove };
     }
 
+    const bestPoints = getBestPoints();
     if (maximizingPlayer) {
         let maxEval = -Infinity;
-        const bestPoints = getBestPoints();
         for (const point of bestPoints) {
-            const newBoard = [...board];
-            newBoard[point[0] * 20 + point[1]].textContent = player;
+            // Sử dụng boardCopy thay vì board
+            boardCopy[point[0] * 20 + point[1]].textContent = player;
             if (checkWin(point[0] * 20 + point[1], player)) {
+                boardCopy[point[0] * 20 + point[1]].textContent = '';
                 return { score: 1000, move: point };
             }
-            const evalObj = minimax(newBoard, depth - 1, alpha, beta, false);
-            newBoard[point[0] * 20 + point[1]].textContent = '';
+            const evalObj = minimax(boardCopy, depth - 1, alpha, beta, false);
             if (evalObj.score > maxEval) {
                 maxEval = evalObj.score;
                 bestMove = point;
             }
+            boardCopy[point[0] * 20 + point[1]].textContent = '';
             alpha = Math.max(alpha, evalObj.score);
             if (beta <= alpha) {
                 break;
@@ -302,19 +306,19 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
         return { score: maxEval, move: bestMove };
     } else {
         let minEval = Infinity;
-        const bestPoints = getBestPoints();
         for (const point of bestPoints) {
-            const newBoard = [...board];
-            newBoard[point[0] * 20 + point[1]].textContent = opponent;
+            // Sử dụng boardCopy thay vì board
+            boardCopy[point[0] * 20 + point[1]].textContent = opponent;
             if (checkWin(point[0] * 20 + point[1], opponent)) {
+                boardCopy[point[0] * 20 + point[1]].textContent = '';
                 return { score: -1000, move: point };
             }
-            const evalObj = minimax(newBoard, depth - 1, alpha, beta, true);
-            newBoard[point[0] * 20 + point[1]].textContent = '';
+            const evalObj = minimax(boardCopy, depth - 1, alpha, beta, true);
             if (evalObj.score < minEval) {
                 minEval = evalObj.score;
                 bestMove = point;
             }
+            boardCopy[point[0] * 20 + point[1]].textContent = '';
             beta = Math.min(beta, evalObj.score);
             if (beta <= alpha) {
                 break;
