@@ -7,14 +7,36 @@
             position: absolute;
             top: 20px;
             left: 20px;
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+    </style>
+    <style>
+        #icon {
+            position: absolute;
+            top: 23px;
+            left: 130px;
+            width: 83px;
+            height: 83px;
+            object-fit: contain;
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/styles-caro.css">
 </head>
 <body>
+    <!-- Nút sound -->
+    <img id="icon" src="static/images/butsound.png" alt="Game Icon">
+
+  <audio id="backgroundMusic" autoplay loop>
+  <source src="static/sounds/background.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+    
+    <!-- Nút home -->
     <a id="homeLink" href="index.html">
-        <img id="homeButton" src="static/images/home.png" alt="Home" width="100" height="auto">
+        <img id="homeButton" src="static/images/home.png" alt="Home">
     </a>
     <h1 style="text-align: center; color: #800000;">Caro Game</h1>
     <!--Cập nhật trạng thái game-->
@@ -40,12 +62,31 @@
 
             // Khi âm thanh đã phát xong, chuyển hướng đến trang mới
             clickSound.onended = function() {
-                window.location.href = "https://vinh0406.github.io/Caro-Game/";
+                window.location.href = 'index.html';
             };
            setTimeout(function() {
-        window.location.href = "https://vinh0406.github.io/Caro-Game/";  // Hết timeout tự chuyển hướng đến trang mới
+        window.location.href = 'index.html';  // Hết timeout tự chuyển hướng đến trang mới
     }, 1000);
         });
+    </script>
+    
+    // Âm thanh nền
+    <script>
+// Lấy đối tượng âm thanh và biểu tượng
+var audio = document.getElementById('backgroundMusic');
+var icon = document.getElementById('icon');
+
+// Thêm sự kiện click vào biểu tượng
+icon.addEventListener('click', function() {
+  // Kiểm tra xem âm thanh có đang phát không
+  if (audio.paused) {
+    // Nếu âm thanh đang tạm dừng, hãy chơi lại
+    audio.play();
+  } else {
+    // Nếu âm thanh đang phát, hãy tạm dừng
+    audio.pause();
+  }
+});
     </script>
 </body>
 <script>
