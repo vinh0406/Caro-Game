@@ -252,7 +252,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             const newBoard = [...board];
             newBoard[point[0] * 20 + point[1]].textContent = player;
             if (checkWin(point[0] * 20 + point[1], player)) {
-                return Infinity;
+                return point;
             }
             const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
             newBoard[point[0] * 20 + point[1]].textContent = '';
