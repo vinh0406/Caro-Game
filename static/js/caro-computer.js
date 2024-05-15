@@ -1,6 +1,5 @@
 // Khai báo bảng và người chơi đầu được sử dụng "X"
 const boardElement = document.getElementById('board');
-const _statusElement = document.getElementById('status');
 const board = [];
 let currentPlayer = 'X';
 
@@ -65,10 +64,14 @@ function checkWin(index, player) {
     ];
     for (const [dx, dy] of directions) {
         let count = 1;
+        let blocked = 0;
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== '') {
+                    blocked++;
+                }
                 break;
             }
             count++;
@@ -77,33 +80,19 @@ function checkWin(index, player) {
             const x = row - dx * i;
             const y = col - dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== '') {
+                    blocked++;
+                }
                 break;
             }
             count++;
         }
-        if (count >= 5) {
+        if (count >= 5 && blocked < 2) {
             return true;
         }
     }
     return false;
 }
-
-// Hằng số đánh giá điểm
-const _MAP_SCORE_COMPUTER = new Map([
-    [5, Infinity],
-    [4, 10000],
-    [3, 5000],
-    [2, 3000],
-    [1, 1000]
-])
-
-const _MAP_POINT_HUMAN = new Map([
-    [4, 1000000],
-    [3, 800],
-    [2, 400],
-    [1, 10],
-    [0, 0]
-])
 
 // Hàm đánh giá điểm cho từng vị trí trên bảng
 function evaluatePosition(row, col, player) {
@@ -254,7 +243,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             if (checkWin(point[0] * 20 + point[1], player)) {
                 return point;
             }
-            const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
+            const evan = minimax(newBoard, depth - 1, alpha, beta, false);
             newBoard[point[0] * 20 + point[1]].textContent = '';
             if (evan > maxEval) {
                 maxEval = evan;
@@ -275,7 +264,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             if (checkWin(point[0] * 20 + point[1], opponent)) {
                 return -Infinity;
             }
-            const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
+            const evan = minimax(newBoard, depth - 1, alpha, beta, true);
             newBoard[point[0] * 20 + point[1]].textContent = '';
             if (evan < minEval) {
                 minEval = evan;
