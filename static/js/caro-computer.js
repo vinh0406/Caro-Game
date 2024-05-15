@@ -269,6 +269,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
     return bestMove;
 }
 
+// Hàm trả về nước đi máy tính
 function getComputerMove() {
     const bestMove = minimax(board, 3, -Infinity, Infinity, true);
     return bestMove;
