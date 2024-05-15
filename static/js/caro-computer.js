@@ -291,7 +291,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 3, -Infinity, Infinity, true);
+    const bestMove = minimax(board, 4, -Infinity, Infinity, true);
     return bestMove;
 }
 function resetGame() {
