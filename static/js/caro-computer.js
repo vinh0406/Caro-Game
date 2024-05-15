@@ -107,12 +107,21 @@ function evaluatePosition(row, col, player) {
 
     for (const [dx, dy] of directions) {
         let count = 1;
+        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
+                blocked++;
+                break;
+            }
+
+            if (board[x * 20 + y].textContent !== player) {
+                if (board[x * 20 + y].textContent !== "") {
+                    blocked++;
+                }
                 break;
             }
 
@@ -123,11 +132,23 @@ function evaluatePosition(row, col, player) {
             const x = row - dx * i;
             const y = col - dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
+                blocked++;
+                break;
+            }
+
+            if (board[x * 20 + y].textContent !== player) {
+                if (board[x * 20 + y].textContent !== "") {
+                    blocked++;
+                }
                 break;
             }
 
             count++;
+        }
+
+        if (blocked === 2) {
+            continue;
         }
 
         maxScore = Math.max(maxScore, count);
@@ -145,16 +166,25 @@ function evaluateDefensePosition(row, col, player) {
         [1, -1] // Chéo trái
     ];
 
-    let maxScore = 0; // Đặt giá trị thấp để ưu tiên phòng thủ
+    let maxScore = 0;
 
     for (const [dx, dy] of directions) {
         let count = 1;
+        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
+                blocked++;
+                break;
+            }
+
+            if (board[x * 20 + y].textContent !== player) {
+                if (board[x * 20 + y].textContent !== "") {
+                    blocked++;
+                }
                 break;
             }
 
@@ -165,11 +195,23 @@ function evaluateDefensePosition(row, col, player) {
             const x = row - dx * i;
             const y = col - dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
+                blocked++;
+                break;
+            }
+
+            if (board[x * 20 + y].textContent !== player) {
+                if (board[x * 20 + y].textContent !== "") {
+                    blocked++;
+                }
                 break;
             }
 
             count++;
+        }
+
+        if (blocked === 2) {
+            continue;
         }
 
         maxScore = Math.max(maxScore, count);
