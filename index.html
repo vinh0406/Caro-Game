@@ -21,6 +21,13 @@
             height: 83px;
             object-fit: contain;
         }
+        #musicStatus {
+        position: absolute;
+        top: 110px;
+        left: 130px;
+        color: #800000; 
+        font-size: 1em;
+    }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/styles-home.css">
@@ -34,11 +41,13 @@
 <body>
     <!-- Nút sound -->
     <img id="icon" src="static/images/butsound.png" alt="Game Icon">
+    <p id="musicStatus">Nhạc nền: Bật</p>
 
   <audio id="backgroundMusic" autoplay loop>
   <source src="static/sounds/background.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
   </audio>
+    
     <!-- Nút home -->
     <a id="homeLink" href="index.html">
         <img id="homeButton" src="static/images/home.png" alt="Home">
@@ -89,9 +98,11 @@ icon.addEventListener('click', function() {
   if (audio.paused) {
     // Nếu âm thanh đang tạm dừng, hãy chơi lại
     audio.play();
+    musicStatus.textContent = "Nhạc nền: Bật";
   } else {
     // Nếu âm thanh đang phát, hãy tạm dừng
     audio.pause();
+    musicStatus.textContent = "Nhạc nền: Tắt";
   }
 });
 </script>
