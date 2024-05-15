@@ -265,10 +265,9 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
                 break;
             }
         }
-        return { score: maxEval, move: bestMove }; // Trả về nước đi tốt nhất cho "O"
+        return maxEval; // Trả về nước đi tốt nhất cho "O"
     } else {
         let minEval = Infinity;
-        let bestMove;
         const bestPoints = getBestPoints();
         for (const point of bestPoints) {
             const newBoard = [...board];
@@ -286,14 +285,25 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
                 break;
             }
         }
-        return { score: minEval, move: bestMove }; // Trả về giá trị đánh giá tốt nhất cho "X"
+        return minEval; // Trả về giá trị đánh giá tốt nhất cho "X"
     }
 }
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const result = minimax(board, 4, -Infinity, Infinity, true);
-    const bestMove = result.move; // Lấy nước đi tốt nhất từ kết quả
+    let bestMove;
+    let bestScore = -Infinity;
+    const bestPoints = getBestPoints();
+    for (const point of bestPoints) {
+        const newBoard = [...board];
+        newBoard[point[0] * 20 + point[1]].textContent = 'O';
+        const score = minimax(newBoard, 4, -Infinity, Infinity, false);
+        newBoard[point[0] * 20 + point[1]].textContent = '';
+        if (score > bestScore) {
+            bestScore = score;
+            bestMove = point;
+        }
+    }
     return bestMove;
 }
 
