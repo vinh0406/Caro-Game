@@ -219,6 +219,7 @@ function getBestPoints() {
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
     const player = maximizingPlayer ? 'O' : 'X';
     const opponent = maximizingPlayer ? 'X' : 'O';
+    let bestMove;
     if (depth == 0) {
         let maxScore = -Infinity;
         for (let i = 0; i < 20; i++) {
@@ -226,35 +227,37 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
                 if (board[i * 20 + j].textContent === "") {
                     const score = evaluatePosition(i, j, player);
                     const defenseScore = evaluateDefensePosition(i, j, opponent);
-                    maxScore = Math.max(maxScore, score + defenseScore);
+                    if (score + defenseScore > maxScore) {
+                        maxScore = score + defenseScore;
+                        bestMove = [i, j];
+                    }
                 }
             }
         }
-        return maxScore;
+        return { score: maxScore, move: bestMove };
     }
 
     if (maximizingPlayer) {
         let maxEval = -Infinity;
-        let bestMove;
         const bestPoints = getBestPoints();
         for (const point of bestPoints) {
             const newBoard = [...board];
             newBoard[point[0] * 20 + point[1]].textContent = player;
             if (checkWin(point[0] * 20 + point[1], player)) {
-                return point;
+                return { score: 1000, move: point };
             }
-            const evan = minimax(newBoard, depth - 1, alpha, beta, false);
+            const evalObj = minimax(newBoard, depth - 1, alpha, beta, false);
             newBoard[point[0] * 20 + point[1]].textContent = '';
-            if (evan > maxEval) {
-                maxEval = evan;
+            if (evalObj.score > maxEval) {
+                maxEval = evalObj.score;
                 bestMove = point;
             }
-            alpha = Math.max(alpha, evan);
+            alpha = Math.max(alpha, evalObj.score);
             if (beta <= alpha) {
                 break;
             }
         }
-        return bestMove; // Trả về nước đi tốt nhất cho "O"
+        return { score: maxEval, move: bestMove };
     } else {
         let minEval = Infinity;
         const bestPoints = getBestPoints();
@@ -262,25 +265,26 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             const newBoard = [...board];
             newBoard[point[0] * 20 + point[1]].textContent = opponent;
             if (checkWin(point[0] * 20 + point[1], opponent)) {
-                return -Infinity;
+                return { score: -1000, move: point };
             }
-            const evan = minimax(newBoard, depth - 1, alpha, beta, true);
+            const evalObj = minimax(newBoard, depth - 1, alpha, beta, true);
             newBoard[point[0] * 20 + point[1]].textContent = '';
-            if (evan < minEval) {
-                minEval = evan;
+            if (evalObj.score < minEval) {
+                minEval = evalObj.score;
+                bestMove = point;
             }
-            beta = Math.min(beta, evan);
+            beta = Math.min(beta, evalObj.score);
             if (beta <= alpha) {
                 break;
             }
         }
-        return minEval; // Trả về giá trị đánh giá tốt nhất cho "X"
+        return { score: minEval, move: bestMove };
     }
 }
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 2, -Infinity, Infinity, true);
+    const bestMove = minimax(board, 3, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
