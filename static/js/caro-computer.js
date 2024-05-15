@@ -229,13 +229,14 @@ function getBestPoints() {
 
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
     const player = maximizingPlayer ? 'O' : 'X';
+    const opponent = maximizingPlayer ? 'X' : 'O';
     if (depth == 0) {
         let maxScore = -Infinity;
         for (let i = 0; i < 20; i++) {
             for (let j = 0; j < 20; j++) {
                 if (board[i * 20 + j].textContent === "") {
-                    const score = evaluatePosition(i, j, 'O');
-                    const defenseScore = evaluateDefensePosition(i, j, 'X');
+                    const score = evaluatePosition(i, j, player);
+                    const defenseScore = evaluateDefensePosition(i, j, opponent);
                     maxScore = Math.max(maxScore, score + defenseScore);
                 }
             }
@@ -243,27 +244,49 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
         return maxScore;
     }
 
-    let maxEval = -Infinity;
-    let bestMove;
-    const bestPoints = getBestPoints();
-    for (const point of bestPoints) {
-        const newBoard = [...board];
-        newBoard[point[0] * 20 + point[1]].textContent = player;
-        if (checkWin(point[0] * 20 + point[1], player)) {
-            return Infinity;
+    if (maximizingPlayer) {
+        let maxEval = -Infinity;
+        let bestMove;
+        const bestPoints = getBestPoints();
+        for (const point of bestPoints) {
+            const newBoard = [...board];
+            newBoard[point[0] * 20 + point[1]].textContent = player;
+            if (checkWin(point[0] * 20 + point[1], player)) {
+                return Infinity;
+            }
+            const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
+            newBoard[point[0] * 20 + point[1]].textContent = '';
+            if (evan > maxEval) {
+                maxEval = evan;
+                bestMove = point;
+            }
+            alpha = Math.max(alpha, evan);
+            if (beta <= alpha) {
+                break;
+            }
         }
-        const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
-        newBoard[point[0] * 20 + point[1]].textContent = '';
-        if (evan > maxEval) {
-            maxEval = evan;
-            bestMove = point;
+        return bestMove; // Trả về nước đi tốt nhất cho "O"
+    } else {
+        let minEval = Infinity;
+        const bestPoints = getBestPoints();
+        for (const point of bestPoints) {
+            const newBoard = [...board];
+            newBoard[point[0] * 20 + point[1]].textContent = opponent;
+            if (checkWin(point[0] * 20 + point[1], opponent)) {
+                return -Infinity;
+            }
+            const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
+            newBoard[point[0] * 20 + point[1]].textContent = '';
+            if (evan < minEval) {
+                minEval = evan;
+            }
+            beta = Math.min(beta, evan);
+            if (beta <= alpha) {
+                break;
+            }
         }
-        alpha = Math.max(alpha, evan);
-        if (beta <= alpha) {
-            break;
-        }
+        return minEval; // Trả về giá trị đánh giá tốt nhất cho "X"
     }
-    return bestMove;
 }
 
 // Hàm trả về nước đi máy tính
