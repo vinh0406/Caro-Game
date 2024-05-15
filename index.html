@@ -21,17 +21,6 @@
             height: 83px;
             object-fit: contain;
         }
-         #icon.soundOff::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 0;
-        height: 0;
-        border-top: 83px solid transparent;
-        border-left: 83px solid red;
-        opacity: 0;
-    }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/styles-home.css">
@@ -99,11 +88,9 @@ icon.addEventListener('click', function() {
   // Kiểm tra xem âm thanh có đang phát không
   if (audio.paused) {
     // Nếu âm thanh đang tạm dừng, hãy chơi lại
-    soundIcon.classList.remove('soundOff');
     audio.play();
   } else {
     // Nếu âm thanh đang phát, hãy tạm dừng
-    soundIcon.classList.add('soundOff');
     audio.pause();
   }
 });
