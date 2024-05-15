@@ -54,40 +54,33 @@ function handleClick(e) {
 }
 
 function checkWin(index, player) {
-    const row = Math.floor(index / 20); // Lấy số hàng 
-    const col = index % 20; // Lấy số cột
-    const directions = [
+    let row = Math.floor(index / 20); // Lấy số hàng 
+    let col = index % 20; // Lấy số cột
+    let directions = [
         [-1, -1],
         [-1, 0],
         [-1, 1],
         [0, 1]
     ];
-    for (const [dx, dy] of directions) {
+    for (let [dx, dy] of directions) {
         let count = 1;
-        let blocked = 0;
         for (let i = 1; i < 5; i++) {
-            const x = row + dx * i;
-            const y = col + dy * i;
+            let x = row + dx * i;
+            let y = col + dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== '') {
-                    blocked++;
-                }
                 break;
             }
             count++;
         }
         for (let i = 1; i < 5; i++) {
-            const x = row - dx * i;
-            const y = col - dy * i;
+            let x = row - dx * i;
+            let y = col - dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== '') {
-                    blocked++;
-                }
                 break;
             }
             count++;
         }
-        if (count >= 5 && blocked < 2) {
+        if (count >= 5) {
             return true;
         }
     }
@@ -107,21 +100,12 @@ function evaluatePosition(row, col, player) {
 
     for (const [dx, dy] of directions) {
         let count = 1;
-        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
-            const x = row + dx * i;
-            const y = col + dy * i;
+            let x = row + dx * i;
+            let y = col + dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
-                blocked++;
-                break;
-            }
-
-            if (board[x * 20 + y].textContent !== player) {
-                if (board[x * 20 + y].textContent !== "") {
-                    blocked++;
-                }
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
 
@@ -129,26 +113,14 @@ function evaluatePosition(row, col, player) {
         }
 
         for (let i = 1; i < 5; i++) {
-            const x = row - dx * i;
-            const y = col - dy * i;
+            let x = row - dx * i;
+            let y = col - dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
-                blocked++;
-                break;
-            }
-
-            if (board[x * 20 + y].textContent !== player) {
-                if (board[x * 20 + y].textContent !== "") {
-                    blocked++;
-                }
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
 
             count++;
-        }
-
-        if (blocked === 2) {
-            continue;
         }
 
         maxScore = Math.max(maxScore, count);
@@ -166,25 +138,16 @@ function evaluateDefensePosition(row, col, player) {
         [1, -1] // Chéo trái
     ];
 
-    let maxScore = 0;
+    let maxScore = 0; // Đặt giá trị thấp để ưu tiên phòng thủ
 
     for (const [dx, dy] of directions) {
         let count = 1;
-        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
-            const x = row + dx * i;
-            const y = col + dy * i;
+            let x = row + dx * i;
+            let y = col + dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
-                blocked++;
-                break;
-            }
-
-            if (board[x * 20 + y].textContent !== player) {
-                if (board[x * 20 + y].textContent !== "") {
-                    blocked++;
-                }
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
 
@@ -192,26 +155,14 @@ function evaluateDefensePosition(row, col, player) {
         }
 
         for (let i = 1; i < 5; i++) {
-            const x = row - dx * i;
-            const y = col - dy * i;
+            let x = row - dx * i;
+            let y = col - dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20) {
-                blocked++;
-                break;
-            }
-
-            if (board[x * 20 + y].textContent !== player) {
-                if (board[x * 20 + y].textContent !== "") {
-                    blocked++;
-                }
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
                 break;
             }
 
             count++;
-        }
-
-        if (blocked === 2) {
-            continue;
         }
 
         maxScore = Math.max(maxScore, count);
@@ -330,7 +281,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 4, -Infinity, Infinity, true).move;
+    const bestMove = minimax(board, 6, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
