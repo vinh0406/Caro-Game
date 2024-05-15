@@ -47,7 +47,9 @@ function handleClick(e) {
                 }, 100); // Thêm trễ 100ms
                 return;
             }
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
         }
     }
 }
@@ -267,15 +269,10 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
     return bestMove;
 }
 
-// Hàm lấy nước đi của máy tính
 function getComputerMove() {
     const bestMove = minimax(board, 3, -Infinity, Infinity, true);
-    if (bestMove) {
-        const [i, j] = bestMove;
-        board[i * 20 + j].textContent = 'O';
-    }
+    return bestMove;
 }
-
 function resetGame() {
     // Xóa tất cả các nước đi trên bảng
     for (let i = 0; i < board.length; i++) {
