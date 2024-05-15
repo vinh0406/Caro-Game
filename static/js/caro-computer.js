@@ -229,25 +229,18 @@ function getBestPoints() {
 
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
     const player = maximizingPlayer ? 'O' : 'X';
-    for (let i = 0; i < 20; i++) {
-        for (let j = 0; j < 20; j++) {
-            if (board[i * 20 + j].textContent === player) {
-                if (depth == 0 || checkWin(i * 20 + j, player)) {
-                    // Sử dụng hàm evaluatePosition và evaluateDefensePosition để đánh giá bảng
-                    let maxScore = -Infinity;
-                    for (let i = 0; i < 20; i++) {
-                        for (let j = 0; j < 20; j++) {
-                            if (board[i * 20 + j].textContent === "") {
-                                const score = evaluatePosition(i, j, 'O');
-                                const defenseScore = evaluateDefensePosition(i, j, 'X');
-                                maxScore = Math.max(maxScore, score + defenseScore);
-                            }
-                        }
-                    }
-                    return maxScore;
+    if (depth == 0) {
+        let maxScore = -Infinity;
+        for (let i = 0; i < 20; i++) {
+            for (let j = 0; j < 20; j++) {
+                if (board[i * 20 + j].textContent === "") {
+                    const score = evaluatePosition(i, j, 'O');
+                    const defenseScore = evaluateDefensePosition(i, j, 'X');
+                    maxScore = Math.max(maxScore, score + defenseScore);
                 }
             }
         }
+        return maxScore;
     }
 
     let maxEval = -Infinity;
@@ -255,8 +248,12 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
     const bestPoints = getBestPoints();
     for (const point of bestPoints) {
         const newBoard = [...board];
-        newBoard[point[0] * 20 + point[1]] = 'O';
-        const evan = minimax(newBoard, depth - 1, alpha, beta, true);
+        newBoard[point[0] * 20 + point[1]].textContent = player;
+        if (checkWin(point[0] * 20 + point[1], player)) {
+            return Infinity;
+        }
+        const evan = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
+        newBoard[point[0] * 20 + point[1]].textContent = '';
         if (evan > maxEval) {
             maxEval = evan;
             bestMove = point;
