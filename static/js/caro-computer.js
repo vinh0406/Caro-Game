@@ -88,14 +88,14 @@ function checkWin(index, player) {
 }
 
 // Hàm đánh giá điểm cho từng vị trí trên bảng
+const WIN_SCORE = 100000;  // Điểm tối đa nếu một người chiến thắng
+const BLOCKED_TWO = 10;    // Điểm cho mỗi cặp hai nước cờ bị chặn
+const OPEN_TWO = 20;       // Điểm cho mỗi cặp hai nước cờ mở
+const BLOCKED_THREE = 100; // Điểm cho mỗi cặp ba nước cờ bị chặn
+const OPEN_THREE = 200;    // Điểm cho mỗi cặp ba nước cờ mở
+const BLOCKED_FOUR = 1000; // Điểm cho mỗi cặp bốn nước cờ bị chặn
+const OPEN_FOUR = 5000;    // Điểm cho mỗi cặp bốn nước cờ mở
 function evaluatePosition(row, col, player) {
-    const WIN_SCORE = 100000;  // Điểm tối đa nếu một người chiến thắng
-    const BLOCKED_TWO = 10;    // Điểm cho mỗi cặp hai nước cờ bị chặn
-    const OPEN_TWO = 20;       // Điểm cho mỗi cặp hai nước cờ mở
-    const BLOCKED_THREE = 100; // Điểm cho mỗi cặp ba nước cờ bị chặn
-    const OPEN_THREE = 200;    // Điểm cho mỗi cặp ba nước cờ mở
-    const BLOCKED_FOUR = 1000; // Điểm cho mỗi cặp bốn nước cờ bị chặn
-    const OPEN_FOUR = 5000;    // Điểm cho mỗi cặp bốn nước cờ mở
     const directions = [
         [0, 1], // Ngang
         [1, 0], // Dọc
