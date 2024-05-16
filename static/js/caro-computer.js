@@ -134,7 +134,6 @@ function evaluateDefensePosition(row, col, player) {
         [1, 1], // Chéo phải
         [1, -1] // Chéo trái
     ];
-
     let maxScore = 0; // Đặt giá trị thấp để ưu tiên phòng thủ
 
     for (const [dx, dy] of directions) {
