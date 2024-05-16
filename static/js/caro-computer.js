@@ -89,6 +89,13 @@ function checkWin(index, player) {
 
 // Hàm đánh giá điểm cho từng vị trí trên bảng
 function evaluatePosition(row, col, player) {
+    const WIN_SCORE = 100000;  // Điểm tối đa nếu một người chiến thắng
+    const BLOCKED_TWO = 10;    // Điểm cho mỗi cặp hai nước cờ bị chặn
+    const OPEN_TWO = 20;       // Điểm cho mỗi cặp hai nước cờ mở
+    const BLOCKED_THREE = 100; // Điểm cho mỗi cặp ba nước cờ bị chặn
+    const OPEN_THREE = 200;    // Điểm cho mỗi cặp ba nước cờ mở
+    const BLOCKED_FOUR = 1000; // Điểm cho mỗi cặp bốn nước cờ bị chặn
+    const OPEN_FOUR = 5000;    // Điểm cho mỗi cặp bốn nước cờ mở
     const directions = [
         [0, 1], // Ngang
         [1, 0], // Dọc
@@ -96,16 +103,18 @@ function evaluatePosition(row, col, player) {
         [1, -1] // Chéo trái
     ];
 
-    let maxScore = -Infinity;
+    let maxScore = 0;
 
     for (const [dx, dy] of directions) {
         let count = 1;
+        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                blocked++;
                 break;
             }
 
@@ -117,53 +126,22 @@ function evaluatePosition(row, col, player) {
             const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                blocked++;
                 break;
             }
             count++;
         }
-        maxScore = Math.max(maxScore, count);
+
+        if (count === 5) {
+            maxScore = WIN_SCORE;
+        } else if (count === 4) {
+            maxScore = Math.max(maxScore, blocked === 0 ? OPEN_FOUR : (blocked === 1 ? BLOCKED_FOUR : 0));
+        } else if (count === 3) {
+            maxScore = Math.max(maxScore, blocked === 0 ? OPEN_THREE : (blocked === 1 ? BLOCKED_THREE : 0));
+        } else if (count === 2) {
+            maxScore = Math.max(maxScore, blocked === 0 ? OPEN_TWO : (blocked === 1 ? BLOCKED_TWO : 0));
+        }
     }
-    return maxScore;
-}
-
-// Hàm kiểm tra số điểm phòng thủ
-function evaluateDefensePosition(row, col, player) {
-    const directions = [
-        [0, 1], // Ngang
-        [1, 0], // Dọc
-        [1, 1], // Chéo phải
-        [1, -1] // Chéo trái
-    ];
-    let maxScore = 0; // Đặt giá trị thấp để ưu tiên phòng thủ
-
-    for (const [dx, dy] of directions) {
-        let count = 1;
-
-        for (let i = 1; i < 5; i++) {
-            const x = row + dx * i;
-            const y = col + dy * i;
-
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                break;
-            }
-
-            count++;
-        }
-
-        for (let i = 1; i < 5; i++) {
-            const x = row - dx * i;
-            const y = col - dy * i;
-
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                break;
-            }
-
-            count++;
-        }
-
-        maxScore = Math.max(maxScore, count);
-    }
-
     return maxScore;
 }
 
@@ -178,7 +156,7 @@ function getBestPoints() {
         for (let j = 0; j < 20; j++) {
             if (board[i * 20 + j].textContent === "") {
                 const attackScore = evaluatePosition(i, j, 'O');
-                const defenseScore = evaluateDefensePosition(i, j, 'X');
+                const defenseScore = evaluatePosition(i, j, 'X');
 
                 if (attackScore > maxAttackScore) {
                     maxAttackScore = attackScore;
@@ -218,7 +196,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             for (let j = 0; j < 20; j++) {
                 if (boardCopy[i * 20 + j].textContent === "") {
                     const score = evaluatePosition(i, j, player);
-                    const defenseScore = evaluateDefensePosition(i, j, opponent);
+                    const defenseScore = evaluatePosition(i, j, opponent);
                     if (score + defenseScore > maxScore) {
                         maxScore = score + defenseScore;
                         bestMove = [i, j];
@@ -237,7 +215,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             boardCopy[point[0] * 20 + point[1]].textContent = player;
             if (checkWin(point[0] * 20 + point[1], player)) {
                 boardCopy[point[0] * 20 + point[1]].textContent = '';
-                return { score: 1000, move: point };
+                return { score: 10000, move: point };
             }
             const evalObj = minimax(boardCopy, depth - 1, alpha, beta, false);
             if (evalObj.score > maxEval) {
@@ -258,7 +236,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             boardCopy[point[0] * 20 + point[1]].textContent = opponent;
             if (checkWin(point[0] * 20 + point[1], opponent)) {
                 boardCopy[point[0] * 20 + point[1]].textContent = '';
-                return { score: -1000, move: point };
+                return { score: -10000, move: point };
             }
             const evalObj = minimax(boardCopy, depth - 1, alpha, beta, true);
             if (evalObj.score < minEval) {
@@ -277,7 +255,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 8, -Infinity, Infinity, true).move;
+    const bestMove = minimax(board, 4, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
