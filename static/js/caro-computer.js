@@ -118,7 +118,8 @@ function evaluatePosition(row, col, player) {
             const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                count = count - 0.5;
+                if (!Number.isInteger(count)) count = 1;
+                else count = count - 0.5;
                 break;
             }
 
