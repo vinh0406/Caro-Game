@@ -205,8 +205,8 @@ function getBestPoints() {
         }
     }
 
-    // Ưu tiên tấn công nếu có điểm tấn công cao hơn, ngược lại ưu tiên phòng thủ
-    return maxAttackScore >= maxDefenseScore ? bestAttackPoints : bestDefensePoints;
+    // Ưu tiên phòng thủ nếu có điểm tấn công bằng điểm phòng thủ
+    return maxAttackScore > maxDefenseScore ? bestAttackPoints : bestDefensePoints;
 }
 
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
