@@ -21,6 +21,13 @@
             height: 83px;
             object-fit: contain;
         }
+        #musicStatus {
+        position: absolute;
+        top: 100px;
+        left: 120px;
+        color: #800000; 
+        font-size: 1.5em;
+    }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/styles-caro.css">
@@ -28,6 +35,7 @@
 <body>
     <!-- Nút sound -->
     <img id="icon" src="static/images/butsound.png" alt="Game Icon">
+    <p id="musicStatus">Nhạc nền: Bật</p>
 
   <audio id="backgroundMusic" autoplay loop>
   <source src="static/sounds/background.mp3" type="audio/mpeg">
@@ -70,7 +78,7 @@
     }, 1000);
         });
         </script>
-        // Âm thanh nền
+         // Âm thanh nền
     <script>
 // Lấy đối tượng âm thanh và biểu tượng
 var audio = document.getElementById('backgroundMusic');
@@ -82,12 +90,14 @@ icon.addEventListener('click', function() {
   if (audio.paused) {
     // Nếu âm thanh đang tạm dừng, hãy chơi lại
     audio.play();
+    musicStatus.textContent = "Nhạc nền: Bật";
   } else {
     // Nếu âm thanh đang phát, hãy tạm dừng
     audio.pause();
+    musicStatus.textContent = "Nhạc nền: Tắt";
   }
 });
-    </script>
+</script>
 
 </body>
 <script>
