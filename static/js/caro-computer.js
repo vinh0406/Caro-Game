@@ -88,13 +88,6 @@ function checkWin(index, player) {
 }
 
 // Hàm đánh giá điểm cho từng vị trí trên bảng
-const WIN_SCORE = 100000;  // Điểm tối đa nếu một người chiến thắng
-const BLOCKED_TWO = 10;    // Điểm cho mỗi cặp hai nước cờ bị chặn
-const OPEN_TWO = 20;       // Điểm cho mỗi cặp hai nước cờ mở
-const BLOCKED_THREE = 100; // Điểm cho mỗi cặp ba nước cờ bị chặn
-const OPEN_THREE = 200;    // Điểm cho mỗi cặp ba nước cờ mở
-const BLOCKED_FOUR = 1000; // Điểm cho mỗi cặp bốn nước cờ bị chặn
-const OPEN_FOUR = 5000;    // Điểm cho mỗi cặp bốn nước cờ mở
 function evaluatePosition(row, col, player) {
     const directions = [
         [0, 1], // Ngang
@@ -131,16 +124,9 @@ function evaluatePosition(row, col, player) {
             }
             count++;
         }
-
-        if (count === 5) {
-            maxScore = WIN_SCORE;
-        } else if (count === 4) {
-            maxScore = Math.max(maxScore, blocked === 0 ? OPEN_FOUR : (blocked === 1 ? BLOCKED_FOUR : 0));
-        } else if (count === 3) {
-            maxScore = Math.max(maxScore, blocked === 0 ? OPEN_THREE : (blocked === 1 ? BLOCKED_THREE : 0));
-        } else if (count === 2) {
-            maxScore = Math.max(maxScore, blocked === 0 ? OPEN_TWO : (blocked === 1 ? BLOCKED_TWO : 0));
-        }
+        if (blocked === 1) count = count - 0.5;
+        else if (blocked === 2) count = 1;
+        maxScore = Math.max(maxScore, count);
     }
     return maxScore;
 }
