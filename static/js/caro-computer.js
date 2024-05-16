@@ -68,7 +68,7 @@ function checkWin(index, player) {
             const x = row + dx * i;
             const y = col + dy * i;
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                break;
+                count = count-0.5;
             }
             count++;
         }
@@ -106,6 +106,7 @@ function evaluatePosition(row, col, player) {
             const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                count = count - 0.5;
                 break;
             }
 
@@ -117,6 +118,7 @@ function evaluatePosition(row, col, player) {
             const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
+                count = count - 0.5
                 break;
             }
 
@@ -199,7 +201,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             boardCopy[point[0] * 20 + point[1]].textContent = player;
             if (checkWin(point[0] * 20 + point[1], player)) {
                 boardCopy[point[0] * 20 + point[1]].textContent = '';
-                return { score: 10000, move: point };
+                return { score: 1000, move: point };
             }
             const evalObj = minimax(boardCopy, depth - 1, alpha, beta, false);
             if (evalObj.score > maxEval) {
@@ -220,7 +222,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
             boardCopy[point[0] * 20 + point[1]].textContent = opponent;
             if (checkWin(point[0] * 20 + point[1], opponent)) {
                 boardCopy[point[0] * 20 + point[1]].textContent = '';
-                return { score: -10000, move: point };
+                return { score: -1000, move: point };
             }
             const evalObj = minimax(boardCopy, depth - 1, alpha, beta, true);
             if (evalObj.score < minEval) {
