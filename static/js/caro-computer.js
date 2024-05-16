@@ -96,7 +96,7 @@ function evaluatePosition(row, col, player) {
         [1, -1] // Chéo trái
     ];
 
-    let maxScore = 0;
+    let maxScore = -Infinity;
 
     for (const [dx, dy] of directions) {
         let count = 1;
@@ -241,7 +241,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 2, -Infinity, Infinity, true).move;
+    const bestMove = minimax(board, 4, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
