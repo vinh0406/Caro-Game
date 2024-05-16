@@ -100,14 +100,12 @@ function evaluatePosition(row, col, player) {
 
     for (const [dx, dy] of directions) {
         let count = 1;
-        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                blocked++;
                 break;
             }
 
@@ -119,15 +117,15 @@ function evaluatePosition(row, col, player) {
             const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                blocked++;
                 break;
             }
+
             count++;
         }
-        if (blocked === 1) count = count - 0.5;
-        else if (blocked === 2) count = 1;
+
         maxScore = Math.max(maxScore, count);
     }
+
     return maxScore;
 }
 
