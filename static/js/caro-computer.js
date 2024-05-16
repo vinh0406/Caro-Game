@@ -100,14 +100,12 @@ function evaluatePosition(row, col, player) {
 
     for (const [dx, dy] of directions) {
         let count = 1;
-        let blocked = 0;
 
         for (let i = 1; i < 5; i++) {
             const x = row + dx * i;
             const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                blocked++;
                 break;
             }
 
@@ -119,20 +117,12 @@ function evaluatePosition(row, col, player) {
             const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                blocked++;
                 break;
             }
-
             count++;
         }
-
-        if (blocked === 2) {
-            count = 0; // Nếu bị chặn ở cả hai đầu, đặt count = 0
-        }
-
         maxScore = Math.max(maxScore, count);
     }
-
     return maxScore;
 }
 
@@ -288,7 +278,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 6, -Infinity, Infinity, true).move;
+    const bestMove = minimax(board, 9, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
