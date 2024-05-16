@@ -205,8 +205,8 @@ function getBestPoints() {
         }
     }
 
-    // Ưu tiên phòng thủ nếu có điểm tấn công bằng điểm phòng thủ
-    return maxAttackScore > maxDefenseScore ? bestAttackPoints : bestDefensePoints;
+    // Ưu tiên tấn công nếu có điểm tấn công bằng điểm phòng thủ
+    return maxAttackScore >= maxDefenseScore ? bestAttackPoints : bestDefensePoints;
 }
 
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
@@ -281,7 +281,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 8, -Infinity, Infinity, true).move;
+    const bestMove = minimax(board, 10, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
