@@ -1,8 +1,8 @@
 // Khai báo bảng và người chơi đầu được sử dụng "X"
 const boardElement = document.getElementById('board');
-const _statusElement = document.getElementById('status');
 const board = [];
 let currentPlayer = 'X';
+let winSound = new Audio('static/sounds/won.mp3');
 
 // Tạo bảng 20x20 
 for (let i = 0; i < 20; i++) {
@@ -25,6 +25,7 @@ function handleClick(e) {
     if (checkWin(index, currentPlayer)) {
         setTimeout(function() {
             alert(currentPlayer + ' wins!');
+            winSound.play(); // Phát âm thanh khi thắng
             resetGame();
         }, 100); // Thêm trễ 100ms
     } else {
