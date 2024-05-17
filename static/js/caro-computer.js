@@ -89,6 +89,7 @@ function checkWin(index, player) {
 
 // Hàm đánh giá điểm cho từng vị trí trên bảng
 function evaluatePosition(row, col, player) {
+    const opponent = player === 'X' ? 'O' : 'X';
     const directions = [
         [0, 1], // Ngang
         [1, 0], // Dọc
@@ -105,11 +106,13 @@ function evaluatePosition(row, col, player) {
             const x = row + dx * i;
             const y = col + dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                count = count - 0.8;
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent === opponent) {
+                count = count - 0.7;
                 break;
             }
-
+            else if (board[x * 20 + y].textContent === "") {
+                break;
+            }
             count++;
         }
 
@@ -117,11 +120,13 @@ function evaluatePosition(row, col, player) {
             const x = row - dx * i;
             const y = col - dy * i;
 
-            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent !== player) {
-                count = count - 0.8;
+            if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent === opponent) {
+                count = count - 0.7;
                 break;
             }
-
+            else if (board[x * 20 + y].textContent === "") {
+                break;
+            }
             count++;
         }
 
