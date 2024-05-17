@@ -107,7 +107,7 @@ function evaluatePosition(row, col, player) {
             const y = col + dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent === opponent) {
-                count = count - 0.7;
+                count = count - 0.5;
                 break;
             }
             else if (board[x * 20 + y].textContent === "") {
@@ -121,7 +121,7 @@ function evaluatePosition(row, col, player) {
             const y = col - dy * i;
 
             if (x < 0 || x >= 20 || y < 0 || y >= 20 || board[x * 20 + y].textContent === opponent) {
-                count = count - 0.7;
+                count = count - 0.5;
                 break;
             }
             else if (board[x * 20 + y].textContent === "") {
@@ -246,7 +246,7 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
 
 // Hàm trả về nước đi máy tính
 function getComputerMove() {
-    const bestMove = minimax(board, 3, -Infinity, Infinity, true).move;
+    const bestMove = minimax(board, 4, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
