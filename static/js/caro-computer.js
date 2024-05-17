@@ -3,7 +3,7 @@ const boardElement = document.getElementById('board');
 const board = [];
 let currentPlayer = 'X';
 let winSound = new Audio('static/sounds/won.mp3');
-
+let loseSound = new Audio('static/sounds/loss.mp3');
 // Tạo bảng 20x20 
 for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 20; j++) {
@@ -42,6 +42,7 @@ function handleClick(e) {
             board[computerMove[0] * 20 + computerMove[1]].classList.add(currentPlayer.toLowerCase());
             board[computerMove[0] * 20 + computerMove[1]].classList.add('highlight'); // Highlight the cell
             if (checkWin(computerMove[0] * 20 + computerMove[1], currentPlayer)) {
+                loseSound.play(); // Phát âm thanh khi thua
                 setTimeout(function() {
                     alert('You lose!');
                     resetGame();
