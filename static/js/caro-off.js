@@ -23,8 +23,8 @@ function handleClick(e) {
     e.target.classList.add('highlight');
     const index = board.indexOf(e.target);
     if (checkWin(index, currentPlayer)) {
+        winSound.play(); // Phát âm thanh khi thắng
         setTimeout(function() {
-            winSound.play(); // Phát âm thanh khi thắng
             alert(' Player ' + currentPlayer + ' wins!');
             resetGame();
         }, 100); // Thêm trễ 100ms
