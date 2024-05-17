@@ -24,8 +24,8 @@ function handleClick(e) {
     const index = board.indexOf(e.target);
     if (checkWin(index, currentPlayer)) {
         setTimeout(function() {
-            alert(currentPlayer + ' wins!');
             winSound.play(); // Phát âm thanh khi thắng
+            alert(' Player ' + currentPlayer + ' wins!');
             resetGame();
         }, 100); // Thêm trễ 100ms
     } else {
