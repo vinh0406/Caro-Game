@@ -70,26 +70,3 @@ body {
 .cell.highlight {
     animation: blink 0.3s linear;
 }
-
-.form-container {
-    /*display: inline-block;*/
-    /* Hiển thị các form cùng một hàng */
-    margin: 4px;
-    border-color: transparent;
-    background-color: transparent;
-    /* Màu nền mới cho form */
-    border-radius: 5px;
-    /* Bo góc cho form */
-    padding: 10px;
-    /* Khoảng cách từ nội dung form đến viền form */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Bóng đổ cho form */
-}
-
-.form-container input {
-    border-radius: 4px;
-    border-color: rgb(255, 255, 255);
-    border-width: 1px;
-    height: 25px;
-    margin-right: 4px;
-}
