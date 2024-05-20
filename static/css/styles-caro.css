@@ -68,5 +68,5 @@ body {
 }
 
 .cell.highlight {
-    animation: blink 0.3s linear;
+    animation: blink 0.5s linear;
 }
