@@ -1,10 +1,22 @@
 // Khai báo bảng và người chơi đầu được sử dụng "X"
 const boardElement = document.getElementById('board');
+/**@const {Object} boardElement - Đối tượng DOM của bảng. Được 
+lấy từ document.getElementById('board').*/
 const board = [];
+/**@const {Array} board - Mảng chứa tất cả các ô trong bảng. Mỗi ô 
+là một đối tượng DOM được tạo từ document.createElement('div')*/
 let currentPlayer = 'X';
+/**@let {String} currentPlayer - Người chơi hiện tại, được khởi tạo là 
+'X'. Giá trị này sẽ thay đổi sau mỗi lượt chơi.*/
 let winSound = new Audio('static/sounds/won.mp3');
+/**@let {Object} winSound - Âm thanh được phát khi người chơi 
+thắng. Được tạo từ new Audio('static/sounds/won.mp3').*/
 let loseSound = new Audio('static/sounds/loss.mp3');
-// Tạo bảng 20x20 
+/**@let {Object} loseSound - Âm thanh được phát khi người chơi 
+thua. Được tạo từ new Audio('static/sounds/loss.mp3').*/
+
+/**Trò chơi bắt đầu bằng việc tạo một bảng 20x20 và thiết lập người 
+chơi đầu tiên là 'X'.*/ 
 for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 20; j++) {
         const cell = document.createElement('div');
@@ -15,7 +27,9 @@ for (let i = 0; i < 20; i++) {
     }
 }
 
-// Handle mỗi Click và xử lý logic sau mỗi lần chọn vị trí
+/**@function handleClick(e) - Xử lý sự kiện click vào một ô và nước đi 
+của máy. Cập nhật ô được chọn với ký tự của người chơi hiện tại, 
+kiểm tra xem người chơi có thắng hay không và chuyển lượt chơi*/
 function handleClick(e) {
     // Kiểm tra xem ô đã được đánh chưa
     if (e.target.textContent === '') {
@@ -56,6 +70,9 @@ function handleClick(e) {
     }
 }
 
+/**@function checkWin(index, player) - Kiểm tra xem người chơi đã 
+thắng sau lượt chơi hiện tại hay chưa. Sử dụng thuật toán kiểm tra 
+hàng, cột và đường chéo*/
 function checkWin(index, player) {
     const row = Math.floor(index / 20); // Lấy số hàng 
     const col = index % 20; // Lấy số cột
@@ -90,7 +107,8 @@ function checkWin(index, player) {
     return false;
 }
 
-// Hàm đánh giá điểm cho từng vị trí trên bảng
+/** evaluatePosition(row, col, player): Đánh giá điểm cho một vị trí trên 
+bảng.row, col: Tọa độ của ô cần đánh giá.player: Người chơi cần đánh giá ("X" hoặc "O").*/
 function evaluatePosition(row, col, player) {
     const opponent = player === 'X' ? 'O' : 'X';
     const directions = [
@@ -139,7 +157,7 @@ function evaluatePosition(row, col, player) {
     return maxScore;
 }
 
-// Hàm lấy danh sách các điểm có điểm số cao nhất
+/**getBestPoints(): Lấy danh sách các vị trí có điểm số cao nhất.*/
 function getBestPoints() {
     let maxAttackScore = -Infinity;
     let maxDefenseScore = -Infinity;
@@ -177,6 +195,13 @@ function getBestPoints() {
     return maxAttackScore >= maxDefenseScore ? bestAttackPoints : bestDefensePoints;
 }
 
+/** minimax(board, depth, alpha, beta, maximizingPlayer): Thuật toán 
+minimax, cắt tỉa Alpha-Beta để tìm nước đi tốt nhất.
+* - board: Bảng trò chơi hiện tại.
+* - depth: Độ sâu tối đa của cây trạng thái.
+* - alpha, beta: Giá trị alpha-beta để cắt tỉa cây trạng thái.
+* - maximizingPlayer: Biến boolean xác định người chơi hiện tại có 
+phải là người cố gắng tối đa hóa điểm số không.*/
 function minimax(board, depth, alpha, beta, maximizingPlayer) {
     const player = maximizingPlayer ? 'O' : 'X';
     const opponent = maximizingPlayer ? 'X' : 'O';
@@ -247,12 +272,15 @@ function minimax(board, depth, alpha, beta, maximizingPlayer) {
     }
 }
 
-// Hàm trả về nước đi máy tính
+/**getComputerMove(): Trả về nước đi của máy tính*/
 function getComputerMove() {
     const bestMove = minimax(board, 4, -Infinity, Infinity, true).move;
     return bestMove;
 }
 
+/**@function resetGame() - Đặt lại trò chơi, xóa tất cả các nước đi và 
+đặt lại người chơi hiện tại là 'X'. Xóa tất cả các sự kiện highlight và tô 
+màu trên bảng.*/
 function resetGame() {
     // Xóa tất cả các nước đi trên bảng
     for (let i = 0; i < board.length; i++) {
