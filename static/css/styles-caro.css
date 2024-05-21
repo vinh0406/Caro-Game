@@ -1,7 +1,9 @@
 * {
+    /**@style * - Thiết lập box-sizing cho tất cả các phần tử.*/
     box-sizing: border-box;
 }
 body {
+    /**@style body - Thiết lập hình nền, màu chữ cho toàn bộ trang.*/
     background-image: url('../images/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -9,6 +11,9 @@ body {
 }
 
 #board {
+    /**@style #board - Thiết lập kích thước, margin, align-items, display, 
+grid-template-columns, gap, border, background-color, backgroundimage, background-size, background-repeat, box-shadow cho bảng 
+chơi game.*/
     width: fit-content;
     margin: auto;
     justify-content: center;
@@ -27,6 +32,9 @@ body {
 }
 
 .cell {
+    /**@style .cell - Thiết lập border-radius, width, height, border, display, 
+justify-content, align-items, font-size, transition, box-shadow cho mỗi 
+ô trong bảng.*/
     border-radius: 5px;
     width: 40px;
     height: 40px;
@@ -40,22 +48,30 @@ body {
 }
 
 .cell:active {
+    /**@style .cell:active - Thiết lập transform cho mỗi ô khi được nhấp 
+vào.*/
     transform: scale(0.9);
 }
 
 .cell.x {
+    /**@style .cell.x - Thiết lập màu chữ, font-family, font-weight cho mỗi ô 
+được đánh dấu là 'X'.*/
     color: #0000ff;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
 
 .cell.o {
+    /**@style .cell.o - Thiết lập màu chữ, font-family, font-weight cho mỗi 
+ô được đánh dấu là 'O'.*/
     color: #ff0000;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
 
 @keyframes blink {
+    /**@style @keyframes blink - Định nghĩa animation 'blink' để thay đổi 
+màu nền của ô.*/
     0% {
         background-color: #ffff99;
     }
@@ -68,5 +84,7 @@ body {
 }
 
 .cell.highlight {
+    /**@style .cell.highlight - Áp dụng animation 'blink' cho mỗi ô được 
+highlight.*/
     animation: blink 0.5s linear;
 }
