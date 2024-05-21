@@ -1,4 +1,6 @@
 body {
+    /** @style body - Thiết lập hình nền, màu chữ và font chữ cho toàn bộ
+trang.*/
     background-image: url('../images/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -7,6 +9,8 @@ body {
 }
 
 .center {
+    /**@style .center - Căn giữa các phần tử bên trong theo cả hai hướng 
+dọc và ngang.*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,6 +19,8 @@ body {
 }
 
 .button {
+    /**@style .button - Thiết lập màu nền, viền, màu chữ, padding, textalign, font-size, và các thuộc tính khác cho nút. Cũng thiết lập hiệu 
+ứng chuyển đổi khi di chuột qua nút.*/
     background-color: #8B4513;
     border: 5px solid white;
     color: white;
@@ -31,6 +37,8 @@ body {
 }
 
 .button:hover {
+    /**@style .button:hover - Định nghĩa cách nút sẽ trông như thế nào 
+khi di chuột qua.*/
     background-color: white;
     color: black;
     border: 5px solid #8B4513;
@@ -38,18 +46,21 @@ body {
 }
 
 .logo {
+    /**@style .logo - Thiết lập kích thước và margin cho logo*/
     width: 250px;
     height: auto;
     margin-bottom: 20px;
 }
 
 .title {
+    /** @style .title - Thiết lập kích thước font và font-weight cho tiêu đề*/
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 .intro {
+    /**@style .intro - Thiết lập text-align và margin cho phần giới thiệu*/
     text-align: center;
     margin-bottom: 20px;
 }
